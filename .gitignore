@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+*.local
+*.log
+*.tsbuildinfo
+.env
+.DS_Store
+
+.tanstack
+.claude/settings.local.json

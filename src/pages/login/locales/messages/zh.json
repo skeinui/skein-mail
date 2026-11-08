@@ -1,0 +1,20 @@
+{
+  "title": "登录邮箱",
+  "subtitle": "欢迎回来，请输入账号和密码查看你的邮件",
+  "username": "用户名",
+  "password": "密码",
+  "submit": "登录",
+  "failed": "登录失败",
+  "expired": "登录已过期，请重新登录，登录后会回到你的邮箱。",
+  "mockHint": "演示账号：admin / admin123（全部权限），viewer / viewer123（只读）；邮件数据由 MSW 模拟",
+  "layout": "布局",
+  "variant": {
+    "centered": "居中",
+    "split": "分栏",
+    "cover": "封面"
+  },
+  "cover": {
+    "title": "所有邮件，一处从容管理",
+    "description": "在简洁、可换主题的收件箱里阅读、搜索和整理邮件"
+  }
+}

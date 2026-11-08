@@ -1,0 +1,24 @@
+{
+  "i18n-ally.localesPaths": [
+    "src/lib/errors/locales",
+    "src/modules/app-preferences/locales",
+    "src/modules/notifications/locales",
+    "src/modules/toolbar/locales",
+    "src/modules/user-menu/locales",
+    "src/pages/error/locales",
+    "src/pages/forbidden/locales",
+    "src/pages/login/locales",
+    "src/pages/mail/locales",
+    "src/pages/not-found/locales",
+    "src/lib/errors/locales/messages",
+    "src/modules/app-preferences/locales/messages",
+    "src/modules/notifications/locales/messages",
+    "src/modules/toolbar/locales/messages",
+    "src/modules/user-menu/locales/messages",
+    "src/pages/error/locales/messages",
+    "src/pages/forbidden/locales/messages",
+    "src/pages/login/locales/messages",
+    "src/pages/mail/locales/messages",
+    "src/pages/not-found/locales/messages"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "skein-mail",
+  "cli": "0.1.0",
+  "template": "admin",
+  "theme": "heroui",
+  "features": ["mock", "router", "query", "i18n", "auth", "shell"]
+}

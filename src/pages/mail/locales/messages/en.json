@@ -1,0 +1,60 @@
+{
+  "title": "Mail",
+  "compose": "Compose",
+  "mailbox": {
+    "inbox": "Inbox",
+    "drafts": "Drafts",
+    "sent": "Sent",
+    "archive": "Archive",
+    "junk": "Junk",
+    "trash": "Trash"
+  },
+  "filter": {
+    "label": "Show",
+    "all": "All",
+    "unread": "Unread",
+    "starred": "Starred"
+  },
+  "search": "Search mail",
+  "noSubject": "(No subject)",
+  "emptyList": "No messages here",
+  "emptySearch": "Nothing matches your search",
+  "pickOne": "Select a message to read",
+  "pickOneHint": "Or write a new one with Compose.",
+  "from": "From",
+  "to": "To",
+  "cc": "Cc",
+  "attachments": "Attachments ({{count}})",
+  "action": {
+    "edit": "Edit",
+    "reply": "Reply",
+    "archive": "Archive",
+    "delete": "Delete",
+    "deleteForever": "Delete forever",
+    "star": "Star",
+    "unstar": "Remove star",
+    "markUnread": "Mark as unread",
+    "toInbox": "Move to Inbox"
+  },
+  "confirmForever": "Delete this message forever?",
+  "confirmForeverHint": "It can't be recovered.",
+  "deleted": "Moved to Trash",
+  "deletedForever": "Deleted",
+  "composeTitle": "New message",
+  "replyPrefix": "Re: ",
+  "quoted": "On {{date}}, {{name}} wrote:",
+  "form": {
+    "to": "To",
+    "toHint": "Separate addresses with commas",
+    "cc": "Cc",
+    "subject": "Subject",
+    "body": "Message",
+    "attach": "Attach files"
+  },
+  "send": "Send",
+  "saveDraft": "Save draft",
+  "sent": "Message sent",
+  "draftSaved": "Draft saved",
+  "needRecipient": "Add at least one recipient",
+  "badAddress": "{{address}} is not a valid address"
+}

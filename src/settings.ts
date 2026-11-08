@@ -1,0 +1,65 @@
+import type { AdminLayoutSettingsValue } from "@skeinui/ui";
+import { DEFAULT_ADMIN_LAYOUT_SETTINGS } from "@skeinui/ui";
+
+interface ThemeStyleEntry {
+  /** Name in the preferences drawer. */
+  label: string;
+  /** Imports the theme style's CSS (a dynamic import, so each one is a separate file). */
+  load: () => Promise<unknown>;
+}
+
+const layout: AdminLayoutSettingsValue = {
+  ...DEFAULT_ADMIN_LAYOUT_SETTINGS,
+  layout: "side",
+  showTabs: true,
+  tabVariant: "chrome",
+  // The toolbar (search, notifications, language, mode) is on the right of the header; "sidebar" puts it at the bottom of the menu
+  toolbar: "header",
+};
+
+/** App defaults. Users can change the layout and the mode in the preferences drawer; that is kept per browser. */
+export const settings = {
+  appName: "Skein Mail",
+  /** Prefix of localStorage keys (preferences, session, language). */
+  storageKey: "skein-mail",
+  /** Where "/" and a fresh sign-in go. */
+  homePath: "/inbox",
+  /** Default light / dark. */
+  mode: "system" as "system" | "light" | "dark",
+  /**
+   * Theme styles the user can pick in the preferences drawer (listing more than one shows the choice). Each one is
+   * its own CSS file, downloaded only when it is used. `npx skein theme add <name…>` / `theme remove` edit this list.
+   */
+  themeStyles: {
+    heroui: { label: "HeroUI v3", load: () => import("@skeinui/themes/heroui/index.css") },
+    antd: { label: "Ant Design 6", load: () => import("@skeinui/themes/antd/index.css") },
+    shadcn: { label: "shadcn/ui (Nova)", load: () => import("@skeinui/themes/shadcn/index.css") },
+    default: { label: "Skein", load: () => import("@skeinui/themes/default/index.css") },
+  } as Record<string, ThemeStyleEntry>,
+  /** The theme style used until the user picks another; `npx skein theme use <name>` sets it. */
+  themeStyle: "heroui",
+  /** Default layout, menu style, tabs…; see AdminLayoutSettings. */
+  layout,
+  /**
+   * The menu lists every page with a _meta.ts. Turn this on to also ask the API which of them the user
+   * may open (`GET /api/user/menus` → paths) and show only those.
+   */
+  menuPermission: false,
+  /**
+   * Toolbar tools by id, in order: built in are "search" (the pages, ⌘K), "notifications" (a bell with the
+   * unread count), "language" (the app's languages) and "mode" (light / dark / system); add your own in
+   * src/modules/toolbar/tools.tsx and list its id here. `header` is the default: users show, hide and
+   * reorder the tools in the preferences drawer (kept in their browser).
+   */
+  toolbar: {
+    /** Next to the account menu. */
+    header: ["search", "notifications", "language", "mode"],
+    /** On the sign-in page, top right. */
+    login: ["language", "mode"],
+  } as Record<"header" | "login", string[]>,
+  /** The sign-in page: `centered` (a card), `split` (a cover and the form) or `cover` (a card over a full-page background). */
+  loginLayout: "split" as "centered" | "split" | "cover",
+  footer: `© ${new Date().getFullYear()} Skein Mail`,
+  /** Adds "Powered by Skein UI" to the footer. Set it to false once you have a Skein UI license (https://skeinui.com). */
+  poweredBy: true,
+};

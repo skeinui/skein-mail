@@ -1,0 +1,54 @@
+{
+  "name": "skein-mail",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Email client UI example for Skein UI, with mock data and no backend.",
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "vp build",
+    "preview": "vp preview",
+    "clean": "rimraf dist node_modules",
+    "typecheck": "tsr generate && tsc",
+    "check": "skein check && vp check",
+    "prepare": "tsr generate && vp config"
+  },
+  "dependencies": {
+    "@skeinui/themes": "^0.1.0",
+    "@skeinui/ui": "^0.1.0",
+    "@tanstack/react-query": "^5.90.0",
+    "@tanstack/react-router": "^1.166.0",
+    "i18next": "^27.0.1",
+    "i18next-browser-languagedetector": "^8.0.0",
+    "lucide-react": "^1.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-i18next": "^18.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@skeinui/cli": "^0.1.0",
+    "@tanstack/router-cli": "^1.166.0",
+    "@tanstack/router-plugin": "^1.166.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.0",
+    "msw": "^3.0.3",
+    "rimraf": "^6.1.4",
+    "typescript": "^6.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0",
+    "vite-plus": "1.5.0"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  },
+  "trustedDependencies": [
+    "msw"
+  ]
+}

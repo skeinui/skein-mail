@@ -1,0 +1,75 @@
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { User } from "@/pages/login/api";
+
+/** Whether `value` is a signed-in user, not whatever a bad response or an older version left behind. */
+export const isUser = (value: unknown): value is User =>
+  typeof value === "object" &&
+  value !== null &&
+  typeof (value as User).username === "string" &&
+  typeof (value as User).name === "string";
+
+const text = (value: unknown) => (typeof value === "string" && value !== "" ? value : null);
+
+interface AuthState {
+  token: string | null;
+  /** Exchanged for a new `token` when the API answers 401 (lib/http.ts); the API may not issue one. */
+  refreshToken: string | null;
+  user: User | null;
+  /** Where to go after signing in: the page that sent the user to the login page. */
+  intendedPath: string | null;
+  /** The session ended by itself (expired / revoked), not by signing out: the login page says so. */
+  expired: boolean;
+  setSession: (token: string, user: User, refreshToken?: string | null) => void;
+  setUser: (user: User) => void;
+  /** A new access token (and refresh token, when the API rotates it). */
+  setToken: (token: string, refreshToken?: string | null) => void;
+  setIntendedPath: (path: string | null) => void;
+  /** The session is over without the user asking: back to the login page, which comes back to `intendedPath`. */
+  expire: (intendedPath: string) => void;
+  reset: () => void;
+}
+
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      token: null,
+      refreshToken: null,
+      user: null,
+      intendedPath: null,
+      expired: false,
+      setSession: (token, user, refreshToken = null) =>
+        set({ token, user, refreshToken, expired: false }),
+      setUser: (user) => set((s) => (isUser(user) ? { user } : s)),
+      setToken: (token, refreshToken) =>
+        set((s) => ({ token, refreshToken: refreshToken ?? s.refreshToken })),
+      setIntendedPath: (intendedPath) => set({ intendedPath }),
+      expire: (intendedPath) =>
+        set({ token: null, refreshToken: null, user: null, intendedPath, expired: true }),
+      reset: () => set({ token: null, refreshToken: null, user: null, expired: false }),
+    }),
+    {
+      name: "skein-mail-auth",
+      // What storage holds is read field by field: a user that isn't one (a response that wasn't the API's, saved by
+      // an earlier version) is dropped rather than crashing every page that shows it
+      merge: (persisted, current) => {
+        const saved =
+          typeof persisted === "object" && persisted !== null
+            ? (persisted as Record<string, unknown>)
+            : {};
+        return {
+          ...current,
+          token: text(saved.token),
+          refreshToken: text(saved.refreshToken),
+          user: isUser(saved.user) ? saved.user : null,
+          // A path of this app: a stored address elsewhere would send the user there after signing in
+          intendedPath:
+            typeof saved.intendedPath === "string" && /^\/(?!\/)/.test(saved.intendedPath)
+              ? saved.intendedPath
+              : null,
+          expired: saved.expired === true,
+        };
+      },
+    },
+  ),
+);

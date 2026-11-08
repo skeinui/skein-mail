@@ -1,0 +1,17 @@
+# pnpm settings for this project.
+# msw's install script keeps public/mockServiceWorker.js in step with the installed msw; pnpm blocks
+# install scripts unless they are allowed here.
+allowBuilds:
+  msw: true
+
+# Vite+: vite is its core (vite-plus-core) for every package, plugins and Vitest included
+minimumReleaseAgeExclude:
+  - i18next@27.0.1
+  - "@skeinui/cli@0.1.0"
+  - "@skeinui/themes@0.1.0"
+  - "@skeinui/ui@0.1.0"
+overrides:
+  vite@*: "npm:@voidzero-dev/vite-plus-core@1.5.0"
+peerDependencyRules:
+  allowAny:
+    - vite

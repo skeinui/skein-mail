@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN" data-skein-theme="heroui">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Skein Mail</title>
+    <!--
+      ConfigProvider writes data-skein-theme / data-skein-mode to <html> after the first render; setting them
+      here as well keeps the first paint themed instead of flashing unstyled (or light in dark mode).
+    -->
+    <script>
+      (() => {
+        let mode = "system";
+        try {
+          const saved = JSON.parse(localStorage.getItem("skein-mail-preferences") ?? "{}");
+          // A mode that isn't one (stored by something else) stays the default
+          if (["system", "light", "dark"].includes(saved.state?.mode)) mode = saved.state.mode;
+        } catch {}
+        if (mode === "system")
+          mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.skeinMode = mode;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

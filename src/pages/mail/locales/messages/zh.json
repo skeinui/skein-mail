@@ -1,0 +1,60 @@
+{
+  "title": "邮件",
+  "compose": "写邮件",
+  "mailbox": {
+    "inbox": "收件箱",
+    "drafts": "草稿箱",
+    "sent": "已发送",
+    "archive": "归档",
+    "junk": "垃圾邮件",
+    "trash": "已删除"
+  },
+  "filter": {
+    "label": "显示",
+    "all": "全部",
+    "unread": "未读",
+    "starred": "星标"
+  },
+  "search": "搜索邮件",
+  "noSubject": "（无主题）",
+  "emptyList": "这里没有邮件",
+  "emptySearch": "没有符合搜索条件的邮件",
+  "pickOne": "选择一封邮件阅读",
+  "pickOneHint": "也可以点击「写邮件」新建一封。",
+  "from": "发件人",
+  "to": "收件人",
+  "cc": "抄送",
+  "attachments": "附件（{{count}}）",
+  "action": {
+    "edit": "编辑",
+    "reply": "回复",
+    "archive": "归档",
+    "delete": "删除",
+    "deleteForever": "彻底删除",
+    "star": "加星标",
+    "unstar": "取消星标",
+    "markUnread": "标为未读",
+    "toInbox": "移回收件箱"
+  },
+  "confirmForever": "彻底删除这封邮件？",
+  "confirmForeverHint": "删除后无法恢复。",
+  "deleted": "已移到已删除",
+  "deletedForever": "已删除",
+  "composeTitle": "新邮件",
+  "replyPrefix": "回复：",
+  "quoted": "{{date}}，{{name}} 写道：",
+  "form": {
+    "to": "收件人",
+    "toHint": "多个地址用逗号分隔",
+    "cc": "抄送",
+    "subject": "主题",
+    "body": "正文",
+    "attach": "添加附件"
+  },
+  "send": "发送",
+  "saveDraft": "存为草稿",
+  "sent": "邮件已发送",
+  "draftSaved": "草稿已保存",
+  "needRecipient": "请至少填写一个收件人",
+  "badAddress": "{{address}} 不是有效的邮箱地址"
+}
