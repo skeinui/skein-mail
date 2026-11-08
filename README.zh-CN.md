@@ -6,6 +6,8 @@
 
 [Skein UI](https://github.com/skeinui/skein) 的邮件客户端界面示例，数据用 mock，不需要后端。
 
+**在线体验：<https://skein-mail.skeinui.com>**（用 `admin` / `admin123` 登录）
+
 它是 `skein create` 的 `admin` 模板，加上一个邮箱界面：所有页面都由现有的 `@skeinui/ui` 组件搭成，所有请求由 [MSW](https://mswjs.io) 在浏览器里应答。
 
 ## 演示了什么
@@ -25,12 +27,22 @@ pnpm dev
 
 用 `admin` / `admin123` 登录，应用打开后进入收件箱。
 
-> `@skeinui/*` 目前链接的是本机的 Skein 仓库（`package.json` 和 `pnpm-workspace.yaml` 里的 `file:` 路径，`.skein.json` 里的 `"local": true`），因为这个应用用到的版本还没发布到 npm。在那之前，请在那个仓库位于所写路径的机器上安装；发布之后，把它们换成已发布的版本（`^<版本号>`）。
-
 ```bash
 pnpm check   # skein check（类型、i18n、硬编码颜色、主题覆盖）和 vp check
 pnpm build
+pnpm clean   # 删除 dist 和 node_modules
 ```
+
+## 部署
+
+应用是静态文件，所以以纯静态资源的方式部署到 Cloudflare，没有 Worker 代码（`wrangler.jsonc`）：`skein-mail.skeinui.com` 是自定义域名，所有不是文件的路径都返回 `index.html`（`single-page-application`），所以在 `/sent` 上刷新也能正常打开。
+
+```bash
+npx wrangler login   # 只需一次
+pnpm run deploy      # vp build，再 wrangler deploy
+```
+
+生产构建同样保持 mock 开启（`.env.production` 里 `VITE_ENABLE_MOCK=true`），因为这个演示没有后端：线上站点和 `pnpm dev` 一样，在浏览器里应答接口请求。要调用真实接口，把它改成 `false`，并在 `VITE_API_BASE_URL` 里填接口地址。
 
 ## 结构
 
@@ -66,3 +78,16 @@ src/lib/list-query/        列表的约定：页码、排序、关键词和由�
 
 - [Skein UI](https://github.com/skeinui/skein)：组件、主题和生成这个项目的 CLI。
 - `AGENTS.md`：在这个项目里工作的规则（编程智能体也会读它）。
+
+## 参与贡献
+
+Skein UI 是开源项目，开发过程完全公开，欢迎任何形式的参与。
+
+- **点一个 Star。** 如果 Skein UI 对你有帮助，在 [GitHub](https://github.com/skeinui/skein) 上点一个 ⭐ 是最简单的支持方式：它能让更多开发者发现这个项目，也是对我们方向的肯定。
+- **反馈问题与建议**：在 [Issues](https://github.com/skeinui/skein/issues) 中提交 bug 或功能需求。附上最小复现，或 [skeinui.com](https://skeinui.com) 上对应页面的链接，能帮助我们更快处理。
+- **提交 Pull Request**：修复、新组件、新主题风格、文档改进都欢迎。开发环境见[开发](https://github.com/skeinui/skein#development)，提交前请运行 `pnpm check`。
+- **加入核心开发团队**：我们在寻找愿意长期参与组件 API、主题风格和 AI 编程工具链建设的伙伴。期待与你一起把 Skein UI 做好。
+
+## 许可证
+
+MIT

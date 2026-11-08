@@ -6,6 +6,8 @@
 
 Email client UI example for [Skein UI](https://github.com/skeinui/skein), with mock data and no backend.
 
+**Live demo: <https://skein-mail.skeinui.com>** (sign in with `admin` / `admin123`)
+
 It is the `admin` template of `skein create`, with a mailbox on top: every screen is built from existing
 `@skeinui/ui` components, and every request is answered in the browser by [MSW](https://mswjs.io).
 
@@ -31,15 +33,26 @@ pnpm dev
 
 Sign in with `admin` / `admin123`; the app opens on the Inbox.
 
-> The `@skeinui/*` packages are linked from a local checkout of Skein (`file:` paths in `package.json` and
-> `pnpm-workspace.yaml`, `"local": true` in `.skein.json`), because the versions this app uses are not on npm
-> yet. Until then, install it on a machine where that checkout is at the path written there; afterwards,
-> replace them with the published version (`^<version>`).
-
 ```bash
 pnpm check   # skein check (types, i18n, hard-coded colors, theme coverage) and vp check
 pnpm build
+pnpm clean   # remove dist and node_modules
 ```
+
+## Deploy
+
+The app is static files, so it deploys to Cloudflare as assets only, with no Worker code
+(`wrangler.jsonc`): `skein-mail.skeinui.com` is a custom domain, and every path that is not a file answers
+with `index.html` (`single-page-application`), so a reload on `/sent` still works.
+
+```bash
+npx wrangler login   # once
+pnpm run deploy      # vp build, then wrangler deploy
+```
+
+The production build keeps the mock on (`VITE_ENABLE_MOCK=true` in `.env.production`), because the demo has
+no backend: the live site answers its API requests in the browser, like `pnpm dev`. To call a real API, set
+it to `false` and put the API's address in `VITE_API_BASE_URL`.
 
 ## How it is put together
 
@@ -81,3 +94,16 @@ mail would need sanitizing, which the component library doesn't do).
 - [Skein UI](https://github.com/skeinui/skein): the components, the theme styles and the CLI that made this
   project.
 - `AGENTS.md`: the rules for working in this project (also read by coding agents).
+
+## Contributing
+
+Skein UI is open source and developed in the open. Contributions of every size are welcome.
+
+- **Star the repository.** If Skein UI is useful to you, a ⭐ on [GitHub](https://github.com/skeinui/skein) is the simplest way to support it: it helps other developers discover the project and tells us the direction is worth pursuing.
+- **Report bugs and suggest features** in [Issues](https://github.com/skeinui/skein/issues). A minimal reproduction, or a link to the relevant page on [skeinui.com](https://skeinui.com), helps us respond quickly.
+- **Open a pull request.** Fixes, components, theme styles and documentation are all welcome. See [Development](https://github.com/skeinui/skein#development) for the setup, and run `pnpm check` before submitting.
+- **Join the core team.** We are looking for people who want to help shape the component API, the theme styles and the tooling for AI coding agents over the long term. We would love to work with you.
+
+## License
+
+MIT

@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "description": "Email client UI example for Skein UI, with mock data and no backend.",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vp dev",
     "build": "vp build",
     "preview": "vp preview",
+    "deploy": "vp build && wrangler deploy",
     "clean": "rimraf dist node_modules",
     "typecheck": "tsr generate && tsc",
     "check": "skein check && vp check",
@@ -34,11 +36,12 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
-    "msw": "^3.0.3",
+    "msw": "3.0.4",
     "rimraf": "^6.1.4",
     "typescript": "^6.0.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0",
-    "vite-plus": "1.5.0"
+    "vite-plus": "1.5.0",
+    "wrangler": "^4.158.0"
   },
   "overrides": {
     "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0"

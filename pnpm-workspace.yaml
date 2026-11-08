@@ -3,6 +3,8 @@
 # install scripts unless they are allowed here.
 allowBuilds:
   msw: true
+  esbuild: true
+  workerd: true
 
 # Vite+: vite is its core (vite-plus-core) for every package, plugins and Vitest included
 minimumReleaseAgeExclude:
